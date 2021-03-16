@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/device/rf" module="api" revision="2.7.0" status="integration" publication="20210316142538" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.device.rf-api" type="jar" ext="jar" conf="default"/>
+		<artifact name="havis.device.rf-api-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="havis.device.rf-api-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+</ivy-module>
