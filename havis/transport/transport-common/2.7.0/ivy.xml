@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/transport" module="transport-common" revision="2.7.0" status="integration" publication="20210316145211" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="module"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.transport-common" conf="default,module"/>
+		<artifact name="havis.transport-common-javadoc" conf="doc"/>
+		<artifact name="havis.transport-common-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/transport" name="transport-api" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default,module"/>
+		<dependency org="havis/util" name="monitor" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default,module"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-core" rev="2.4.6" conf="module"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-annotations" rev="2.4.6" conf="module"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-databind" rev="2.4.6" conf="module"/>
+		<dependency org="org/eclipse/paho" name="org.eclipse.paho.client.mqttv3" rev="1.2.2" conf="module"/>
+		<dependency org="com/microsoft/azure/sdk/iot" name="iot-device-client" rev="1.25.0" conf="module"/>
+		<dependency org="net/sf/supercsv" name="super-csv" rev="2.4.0" conf="module"/>
+	</dependencies>
+
+</ivy-module>
