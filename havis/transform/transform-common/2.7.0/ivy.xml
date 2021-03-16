@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/transform" module="transform-common" revision="2.7.0" status="integration" publication="20210316143928" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.transform-common" conf="default,module"/>
+		<artifact name="havis.transform-common-javadoc" conf="doc"/>
+		<artifact name="havis.transform-common-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/transform" name="transform-api" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default,module"/>
+	</dependencies>
+
+</ivy-module>
