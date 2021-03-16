@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/transport" module="transport-api" revision="2.7.0" status="integration" publication="20210316143827" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="module"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.transport-api" conf="default,module"/>
+		<artifact name="havis.transport-api-javadoc" conf="doc"/>
+		<artifact name="havis.transport-api-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/transform" name="transform-api" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default,module"/>
+		<dependency org="javax/xml/bind" name="jaxb-api" rev="2.2.10" conf="module"/>
+	</dependencies>
+
+</ivy-module>
