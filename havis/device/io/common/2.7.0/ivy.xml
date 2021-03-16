@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/device/io" module="common" revision="2.7.0" status="integration" publication="20210316131554" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="deb"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.device.io-common" conf="default"/>
+		<artifact name="havis.device.io-common-javadoc" conf="doc"/>
+		<artifact name="havis.device.io-common-sources" conf="src"/>
+		<artifact name="havis.device.io" type="deb" conf="deb"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-databind" rev="2.4.6" conf="default"/>
+		<dependency org="havis/device/io" name="api" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default"/>
+	</dependencies>
+</ivy-module>
