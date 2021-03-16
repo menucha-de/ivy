@@ -1,0 +1,34 @@
+name: Generate index
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: 'Reset'        
+      folder:
+        description: 'Sub-Folder'
+        default: /havis
+        required: true
+      pattern:
+        description: 'Content include pattern'
+        default: '^[0-9]+\.[0-9]+(\.[a-zA-Z0-9]+)*(-[a-zA-Z0-9]+)*$'
+        
+jobs:
+  reindex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Reset
+        uses: peramic/actions/git-reset@v1
+        if: ${{ github.event.inputs.reset }}
+      - name: Generate index
+        uses: peramic/actions/generate-index@v1
+        with:
+          folder: ${{ github.event.inputs.folder }}
+          repository: ${GITHUB_REPOSITORY##*/}
+          content-include-pattern: ${{ github.event.inputs.pattern }}
+      - name: Publish
+        uses: peramic/actions/git-push@main
+        with:
+          arguments: -u --force
