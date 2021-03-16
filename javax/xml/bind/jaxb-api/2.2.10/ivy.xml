@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="javax/xml/bind" module="jaxb-api" revision="2.2.10" status="integration" publication="20210316121137" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jaxb-api" conf="default,module"/>
+		<artifact name="jaxb-api-javadoc" conf="doc"/>
+		<artifact name="jaxb-api-sources" conf="src"/>
+	</publications>
+
+</ivy-module>

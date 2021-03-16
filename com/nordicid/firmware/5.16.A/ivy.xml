@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/nordicid" module="firmware" revision="5.16.A" status="integration" publication="20210316121213" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="NUR-L2-application" type="bin" conf="default"/>
+		<artifact name="NUR-05WL2-loader" type="bin" conf="default"/>
+	</publications>
+
+</ivy-module>

@@ -1,0 +1,589 @@
+<?xml version="1.0"?>
+<project xmlns="antlib:org.apache.tools.ant" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<property name="basename" value="${ant.project.name}" />
+	<property name="build.dir" location="${basedir}/target" />
+	<property name="build.dir.classes" location="${build.dir}/classes" />
+	<property name="build.dir.test" location="${build.dir}/test" />
+	<property name="build.dir.test.classes" location="${build.dir.test}/classes" />
+
+	<property name="dst.dir" location="${build.dir}/deb/opt/havis-apps" />
+	<property name="doc.dir" location="${build.dir}/doc" />
+	<property name="lib.dir" location="${basedir}/lib" />
+	<property name="resources.dir" location="${basedir}/src/main/resources" />
+	<property name="resources.dir.classpath" location="${resources.dir}/classpath" />
+	<property name="resources.dir.xml" location="${resources.dir}/xml" />
+	<property name="resources.dir.common" location="${resources.dir}/common" />
+	<property name="resources.dir.test.classpath" location="${basedir}/src/test/resources/classpath" />
+
+	<property name="src.main.dir" location="${basedir}/src/main/java" />
+	<property name="src.test.dir" location="${basedir}/src/test/java" />
+
+
+	<property file="${resources.dir}/build.properties" />
+	<property file="${resources.dir}/MANIFEST.MF" prefix="manifest" />
+
+	<property name="javac.version" value="8" />
+	<property name="openjdk-9" location="/usr/lib/jvm/java-9-openjdk-amd64" />
+	<property name="openjdk-11" location="/usr/lib/jvm/java-11-openjdk-amd64" />
+
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}" />
+	</path>
+
+	<filterset id="manifest" filtersfile="${resources.dir}/MANIFEST.MF" />
+
+	<macrodef name="clean-cache" description="Cleans ivy cache">
+		<sequential>
+			<ivy:cleancache />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="clean" description="Cleans the project">
+		<sequential>
+			<delete dir="${build.dir}" />
+			<delete dir="${lib.dir}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="clean-all" description="Cleans the project and ivy cache">
+		<sequential>
+			<clean />
+			<clean-cache />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="xjc">
+		<attribute name="name" />
+		<attribute name="location" default="${resources.dir.xml}" />
+		<attribute name="package" default="${basename}" />
+		<attribute name="catalog" default="" />
+		<attribute name="episode" default="false" />
+		<attribute name="args" default="" />
+		<element name="bindings" optional="true" implicit="true" />
+		<sequential>
+			<retrieve />
+			<mkdir dir="${build.dir.xml.src}" />
+			<mkdir dir="${build.dir.xml.binding}" if:true="@{episode}" />
+			<taskdef name="xjc2" classname="com.sun.tools.xjc.XJC2Task" classpathref="build.classpath" />
+			<xjc2 schema="@{location}/@{name}.xsd" destdir="${build.dir.xml.src}" package="@{package}" extension="true">
+				<arg value="-npa" />
+				<arg value="-verbose" />
+				<arg value="-episode" if:true="@{episode}" />
+				<arg value="${build.dir.xml.binding}/@{name}_xml" if:true="@{episode}" />
+				<arg line="@{args}" />
+				<bindings />
+			</xjc2>
+			<xslt in="${build.dir.xml.binding}/@{name}_xml" out="${build.dir.xml.binding}/@{name}.xml" if:true="@{episode}">
+				<style>
+					<url url="${ivy.url}/ant/style.xsl" />
+				</style>
+				<param name="filename" expression="@{location}/@{name}.xsd" />
+			</xslt>
+			<delete file="${build.dir}/jaxb/binding/@{name}_xml" if:true="@{episode}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="wsimport">
+		<attribute name="name" />
+		<attribute name="location" default="${resources.dir.xml}" />
+		<attribute name="wsdlLocation" default="xml" />
+		<attribute name="package" default="${basename}" />
+		<attribute name="args" default="" />
+		<element name="bindings" optional="true" implicit="true" />
+		<sequential>
+			<mkdir dir="${build.dir.xml.src}" />
+			<mkdir dir="${build.dir.xml.classes}" />
+			<taskdef name="wsimport2" classname="com.sun.tools.ws.ant.WsImport2">
+				<classpath>
+					<pathelement location="${build.dir.classes}" />
+					<pathelement location="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+					<path refid="build.classpath" />
+				</classpath>
+			</taskdef>
+			<wsimport2 wsdl="@{location}/@{name}" package="@{package}" sourcedestdir="${build.dir.xml.src}" extension="true" wsdlLocation="@{wsdlLocation}/@{name}" xnocompile="true">
+				<arg line="@{args}" />
+				<bindings />
+			</wsimport2>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="make">
+		<attribute name="args" default="clean all" />
+		<attribute name="dir" default="${basedir}" />
+		<sequential>
+			<check.build.properties />
+			<exec executable="make" dir="@{dir}">
+				<env key="JAVA_HOME" value="${java.home}" />
+				<env key="CC" value="${cc}" />
+				<env key="ARCH" value="${arch}" />
+				<arg line="@{args}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="compile-gwt">
+		<attribute name="dst" default="${dst.dir}/www" />
+		<attribute name="modules" default="${gwt.modules}" />
+		<attribute name="name" default="${basename}" />
+		<sequential>
+			<uptodate property="uptodate.compile-gwt" targetfile="@{dst}/@{name}/@{name}.nocache.js">
+				<srcfiles dir="${src.main.dir}" includes="*" />
+			</uptodate>
+			<sequential unless:set="uptodate.compile-gwt">
+				<mkdir dir="@{dst}" />
+				<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+					<classpath>
+						<pathelement location="${src.main.dir}" />
+						<pathelement location="${build.dir.classes}" />
+						<pathelement location="${build.dir.xml.src}" if:set="build.dir.xml.src" />
+						<pathelement location="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+						<path refid="build.classpath" />
+					</classpath>
+					<jvmarg value="-Xmx512M" />
+					<arg line="-style ${gwt.style}" if:set="gwt.style" />
+					<arg value="-strict" />
+					<arg value="-war" />
+					<arg value="@{dst}" />
+					<arg line="@{modules}" />
+				</java>
+
+				<delete dir="@{dst}/../gwt-unitCache" />
+				<delete dir="@{dst}/WEB-INF" />
+			</sequential>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="compile-rmi">
+		<attribute name="includes" default="**/*RemoteServer.class, **/*RemoteObject.class" />
+		<sequential>
+			<rmic base="${build.dir.classes}" includes="@{includes}">
+				<classpath>
+					<pathelement location="${build.dir.classes}" />
+					<pathelement location="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+					<path refid="build.classpath" />
+				</classpath>
+			</rmic>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="check.build.properties">
+		<sequential>
+			<condition property="ivy.resolver" else="local">
+				<isset property="ivy.resolver" />
+			</condition>
+			<fail message="Missing property 'api.url'. Does 'build.properties' file exists?" unless="api.url" />
+			<fail message="Missing property 'ivy.url'. Does 'build.properties' file exists?" unless="ivy.url" />
+
+			<condition property="linux">
+				<os family="unix" />
+			</condition>
+
+			<sequential if:set="platform">
+
+				<condition property="arch" value="amd64">
+					<matches pattern="^linux-amd64$" string="${platform}" />
+				</condition>
+
+				<condition property="arch" value="armhf">
+					<matches pattern="^linux-arm$" string="${platform}" />
+				</condition>
+
+				<condition property="processor" value="amd64">
+					<matches pattern="^linux-amd64$" string="${platform}" />
+				</condition>
+
+				<condition property="processor" value="arm">
+					<matches pattern="^linux-arm$" string="${platform}" />
+				</condition>
+
+				<condition property="cc" value="arm-linux-gnueabihf-gcc" else="gcc">
+					<matches pattern="^armhf$" string="${arch}" />
+				</condition>
+
+				<condition property="arm" value="true">
+					<matches pattern="arm" string="${processor}" />
+				</condition>
+			</sequential>
+			<echoproperties />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="retrieve">
+		<attribute name="conf" default="default" />
+		<sequential>
+			<check.build.properties />
+			<ivy:retrieve conf="@{conf}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="module-info">
+		<sequential>
+			<local name="module-info.present" />
+			<available file="${resources.dir}/module-info.java" property="module-info.present" />
+			<sequential if:set="module-info.present">
+				<local name="module-info.openjdk.path" />
+				<local name="module-info.openjdk.present" />
+				<local name="module-info.openjdk-9.present" />
+				<local name="module-info.openjdk-11.present" />
+				<available file="${openjdk-9}" type="dir" property="module-info.openjdk-9.present" />
+				<available file="${openjdk-11}" type="dir" property="module-info.openjdk-11.present" />
+				<condition property="module-info.openjdk.present">
+					<or>
+						<isset property="module-info.openjdk-9.present"/>
+						<isset property="module-info.openjdk-11.present"/>
+					</or>
+				</condition>
+				<condition property="module-info.openjdk.path" value="${openjdk-9}">
+					<isset property="module-info.openjdk-9.present"/>
+				</condition>
+				<condition property="module-info.openjdk.path" value="${openjdk-11}">
+					<isset property="module-info.openjdk-11.present"/>
+				</condition>
+				<sequential if:set="module-info.openjdk.present">
+					<ivy:retrieve pattern="${build.dir}/modules/[artifact].[ext]" conf="module" />
+					<exec executable="${module-info.openjdk.path}/bin/javac" failonerror="true">
+						<arg value="--release" />
+						<arg value="9" />
+						<arg value="-d" />
+						<arg value="${build.dir.classes}" />
+						<arg value="-p" />
+						<arg value="${build.dir}/modules" />
+						<arg value="${resources.dir}/module-info.java" />
+					</exec>
+				</sequential>
+				<sequential unless:set="module-info.openjdk.present">
+					<echo message="Missing openjdk-11 or 9" level="warning" />
+				</sequential>
+			</sequential>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="compile">
+		<attribute name="dst" default="${build.dir.classes}" />
+		<attribute name="version" default="${javac.version}" />
+		<element name="ext" implicit="true" optional="true" />
+		<sequential>
+			<retrieve />
+			<mkdir dir="@{dst}" />
+			<available file="${lib.dir}" type="dir" property="compile.lib.dir.present" />
+			<javac destdir="@{dst}" debug="${javac.debug}" release="@{version}" includeantruntime="false">
+				<ext />
+				<classpath if:set="compile.lib.dir.present">
+					<path refid="build.classpath" />
+				</classpath>
+			</javac>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="prepare">
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<retrieve />
+			<mkdir dir="${build.dir.test.classes}" />
+			<javac srcdir="${src.test.dir}" destdir="${build.dir.test.classes}" debug="${javac.debug}" release="${javac.version}" includeantruntime="false">
+				<classpath>
+					<path refid="build.classpath" />
+					<pathelement location="${build.dir.classes}" />
+					<pathelement location="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+				</classpath>
+			</javac>
+			<!-- copying properties for resource bundles -->
+			<copy overwrite="true" todir="${build.dir.classes}">
+				<fileset dir="${src.main.dir}" includes="**/*.properties" />
+			</copy>
+			<tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="test">
+		<attribute name="name" default="${basename}.TestSuite" />
+		<attribute name="libpath" default="" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<prepare>
+				<tasks />
+			</prepare>
+			<junit printsummary="true" fork="yes" dir="${build.dir.test}" haltonerror="yes" haltonfailure="yes" showoutput="true">
+				<jvmarg value="-Djmockit-coverage-output=html" />
+				<jvmarg value="-Djmockit-coverage-outputDir=${build.dir.test}/coverage-report" />
+				<jvmarg value="-Djmockit-coverage-srcDirs=${src.main.dir}" />
+				<jvmarg value="-Djmockit-coverage-classes=loaded" />
+				<jvmarg value="-Djava.library.path=@{libpath}" unless:blank="@{libpath}" />
+				<classpath>
+					<pathelement location="${build.dir.test.classes}" />
+					<pathelement location="${resources.dir.test.classpath}" />
+					<pathelement location="${resources.dir.classpath}" />
+					<pathelement location="${build.dir.classes}" />
+					<pathelement location="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+					<path>
+						<fileset dir="${lib.dir}">
+							<exclude name="gwt-dev-*" />
+						</fileset>
+					</path>
+				</classpath>
+				<formatter type="xml" />
+				<test name="@{name}" todir="${build.dir.test}" />
+			</junit>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jar-bin">
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<available file="${resources.dir}/MANIFEST.MF" property="jar-bin.manifest.present" />
+			<available file="${resources.dir.classpath}" type="dir" property="jar-bin.classpath.present" />
+			<available file="${resources.dir.classpath}/OSGI-INF/${basename}.properties" property="jar-bin.osgi-inf.present" />
+			<sequential if:set="jar-bin.manifest.present">
+				<copy overwrite="true" todir="${build.dir.classes}" if:set="jar-bin.osgi-inf.present">
+					<fileset dir="${resources.dir.classpath}" includes="OSGI-INF/${basename}.properties" />
+					<filterset refid="manifest" />
+				</copy>
+				<available file="${build.dir.classes}" type="dir" property="jar-bin.classes.present" />
+				<jar jarfile="${build.dir}/${basename}.jar" manifest="${resources.dir}/MANIFEST.MF" duplicate="preserve">
+					<fileset dir="${build.dir.classes}" excludes="**/*.gwt.xml" if:set="jar-bin.classes.present" />
+					<fileset dir="${build.dir.xml.classes}" if:set="build.dir.xml.classes" />
+					<fileset dir="${resources.dir.classpath}" excludes="OSGI-INF/${basename}.properties" if:set="jar-bin.classpath.present" />
+					<tasks />
+				</jar>
+			</sequential>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jar-src">
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<jar jarfile="${build.dir}/${basename}-sources.jar">
+				<fileset dir="${src.main.dir}" />
+				<fileset dir="${build.dir.xml.src}" if:set="build.dir.xml.src" />
+				<tasks />
+			</jar>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jar-doc">
+		<attribute name="packages" default="${basename}.*" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<available file="${lib.dir}" type="dir" property="jar-doc.lib.dir.present" />
+			<javadoc destdir="${doc.dir}" author="true" version="true" use="true" windowtitle="${javadoc.windowtitle}" doctitle="${javadoc.doctitle}" bottom="${javadoc.buttom}">
+				<packageset dir="${src.main.dir}" />
+				<packageset dir="${build.dir.xml.src}" if:set="build.dir.xml.src" />
+				<classpath refid="build.classpath" if:set="jar-doc.lib.dir.present" />
+				<group title="Packages" packages="@{packages}" />
+				<link offline="true" href="http://docs.oracle.com/javase/7/docs/api/" packagelistURL="${api.url}/javase/7/" />
+				<tasks />
+			</javadoc>
+			<jar jarfile="${build.dir}/${basename}-javadoc.jar" basedir="${doc.dir}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="app">
+		<attribute name="name" default="${basename}" />
+		<attribute name="deb" default="true" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<deb dst="${build.dir}/tar" if:true="@{deb}" />
+			<tasks />
+			<exec executable="fakeroot">
+				<arg value="tar" />
+				<arg value="cfC" />
+				<arg value="${build.dir}/@{name}.tar" />
+				<arg value="${build.dir}/tar" />
+				<arg value="." />
+			</exec>
+			<concat destfile="${build.dir}/@{name}.app" binary="yes">
+				<fileset file="${resources.dir}/make" />
+				<fileset file="${build.dir}/@{name}.tar" />
+			</concat>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="deb">
+		<attribute name="name" default="40_${basename}" />
+		<attribute name="dst" default="${build.dir}" />
+		<attribute name="dpkg" default="true" />
+		<attribute name="jar" default="true" />
+		<attribute name="package" default="${basename}" />
+		<attribute name="arch" default="all" />
+		<attribute name="dir" default="deb" />
+		<attribute name="filterincludes" default="**/*.html DEBIAN/*" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<available file="${resources.dir.common}" property="deb.resources.dir.common.present" />
+
+			<local name="deb.dst.dir" />
+			<loadresource property="deb.dst.dir">
+				<propertyresource name="dst.dir" />
+				<filterchain>
+					<tokenfilter>
+						<filetokenizer />
+						<replacestring from="/deb/" to="/@{dir}/" />
+					</tokenfilter>
+				</filterchain>
+			</loadresource>
+
+			<copy file="${build.dir}/${basename}.jar" tofile="${deb.dst.dir}/bundle/@{name}.jar" if:true="@{jar}" />
+
+			<copy todir="${deb.dst.dir}/www" if:set="deb.resources.dir.common.present">
+				<fileset dir="${resources.dir.common}" includes="**" />
+			</copy>
+
+			<copy todir="${build.dir}/@{dir}">
+				<fileset dir="${resources.dir}/@{dir}/" includes="@{filterincludes}" />
+				<filterset refid="manifest" />
+				<filterset>
+					<filter token="PACKAGE" value="@{package}" />
+					<filter token="ARCH" value="@{arch}" />
+					<filter token="PLATFORM" value="${platform}" />
+				</filterset>
+			</copy>
+
+			<copy todir="${build.dir}/@{dir}">
+				<fileset dir="${resources.dir}/@{dir}/" excludes="@{filterincludes}" />
+			</copy>
+
+			<chmod perm="755" type="file" if:true="@{dpkg}">
+				<fileset dir="${build.dir}/@{dir}/DEBIAN">
+					<include name="preinst" />
+					<include name="postinst" />
+					<include name="prerm" />
+					<include name="postrm" />
+				</fileset>
+			</chmod>
+
+			<tasks />
+
+			<mkdir dir="@{dst}" if:true="@{dpkg}" />
+			<exec executable="fakeroot" if:true="@{dpkg}">
+				<arg value="dpkg-deb" />
+				<arg value="-b" />
+				<arg value="-Zgzip" />
+				<arg value="${build.dir}/@{dir}" />
+				<arg value="@{dst}/@{package}.deb" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="client">
+		<attribute name="base" default="../" />
+		<attribute name="zip" default="true" />
+		<attribute name="dst" default="${build.dir}/client" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<available file="${resources.dir.common}" property="client.resources.dir.common.present" />
+
+			<copy todir="@{dst}" if:set="client.resources.dir.common.present">
+				<fileset dir="${resources.dir.common}" includes="**" />
+			</copy>
+
+			<copy todir="@{dst}">
+				<fileset dir="${resources.dir}/client/" includes="**/*.html, **/*.js, **/*.css" />
+				<filterset refid="manifest" />
+				<filterset>
+					<filter token="base" value="@{base}" />
+				</filterset>
+			</copy>
+			<copy todir="@{dst}">
+				<fileset dir="${resources.dir}/client/" excludes="**/*.html, **/*.js, **/*.css" />
+			</copy>
+
+			<tasks />
+
+			<zip destfile="${build.dir}/${basename}.zip" basedir="@{dst}" if:true="@{zip}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="publish">
+		<attribute name="jar" default="true" />
+		<attribute name="src" default="true" />
+		<attribute name="doc" default="true" />
+		<attribute name="app" default="true" />
+		<attribute name="version" default="${manifest.Bundle-Version}" />
+		<sequential>
+			<jar-bin if:true="@{jar}" />
+			<jar-src if:true="@{src}" />
+			<jar-doc if:true="@{doc}" />
+			<app if:true="@{app}" />
+
+			<ivy:resolve file="${resources.dir}/ivy.xml" />
+
+			<ivy:publish resolver="${ivy.resolver}" pubrevision="@{version}" status="integration" overwrite="true">
+				<artifacts pattern="${build.dir}/[artifact].[ext]" />
+			</ivy:publish>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="extract">
+		<attribute name="name" />
+		<sequential>
+			<local name="extract.deb" />
+			<condition property="extract.deb">
+				<matches pattern="\.deb$" string="@{name}" />
+			</condition>
+			<exec executable="bash" dir="${build.dir}" unless:set="extract.deb">
+				<env key="TARGET" value="${build.dir}/deb" />
+				<arg value="@{name}" />
+				<arg value="extract" />
+			</exec>
+			<exec executable="dpkg" if:set="extract.deb">
+				<arg value="-x" />
+				<arg value="${build.dir}/@{name}" />
+				<arg value="${build.dir}/deb" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="standalone">
+		<attribute name="deb" default="true" />
+		<attribute name="mapper" default="" />
+		<element name="tasks" optional="true" implicit="true" />
+		<sequential>
+			<deb dpkg="false" if:true="@{deb}" />
+			<ivy:retrieve pattern="${build.dir}/[artifact].[ext]" conf="standalone">
+				<compositemapper>
+					<mapper refid="@{mapper}" unless:blank="@{mapper}" />
+					<firstmatchmapper>
+						<globmapper from="*" to="*" />
+					</firstmatchmapper>
+				</compositemapper>
+			</ivy:retrieve>
+			<tasks />
+			<available file="${build.dir}/havis-apps.tar" property="standalone.tar.present" />
+			<exec executable="tar" if:set="standalone.tar.present">
+				<arg value="xfC" />
+				<arg value="${build.dir}/havis-apps.tar" />
+				<arg value="${build.dir}/deb" />
+			</exec>
+			<available file="${build.dir}/havis-apps.deb" property="standalone.deb.present" />
+			<extract name="havis-apps.deb" if:set="standalone.deb.present" />
+			<available file="${user.home}/.felix" property="standalone.felix.present" />
+			<copy overwrite="true" file="${user.home}/.felix" tofile="${build.dir}/deb/etc/default/felix" if:set="standalone.felix.present" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="mkinfo">
+		<attribute name="target" default="${build.dir}" />
+		<sequential>
+			<echo file="@{target}/mkinfo.sh">
+if [ ! -d @{target}/info ]; then
+  mkdir @{target}/info
+else
+  rm @{target}/info/*.properties
+fi			
+for i in lib/*.jar target/*.jar; do
+  IFS="
+"
+  for j in $(unzip -p "$i" META-INF/MANIFEST.MF | sed -z 's/\r\n //g' | grep "^Havis-Bundle: " | tr -d '\r'); do
+    unzip -p "$i" "${j#*/}" > "@{target}/info/${j##*/}"
+  done
+  unset IFS
+done			
+			</echo>
+			<exec executable="sh">
+				<arg line="-c 'bash @{target}/mkinfo.sh'"/>
+			</exec>
+		</sequential>
+	</macrodef>	
+
+</project>

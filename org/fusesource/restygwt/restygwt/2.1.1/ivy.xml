@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/fusesource/restygwt" module="restygwt" revision="2.1.1" status="integration" publication="20210316121237" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="restygwt" type="jar" ext="jar" conf="default"/>
+		<artifact name="restygwt-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="restygwt-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/github/nmorel/gwtjackson" name="gwt-jackson" rev="0.14.2" conf="default"/>
+	</dependencies>
+
+</ivy-module>

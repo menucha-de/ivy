@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/fasterxml/jackson/dataformat" module="jackson-dataformat-xml" revision="2.4.6" status="integration" publication="20210316121149" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jackson-dataformat-xml" conf="default"/>
+		<artifact name="jackson-dataformat-xml-javadoc" conf="doc"/>
+		<artifact name="jackson-dataformat-xml-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-annotations" rev="2.4.6" conf="default"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-core" rev="2.4.6" conf="default"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-databind" rev="2.4.6" conf="default"/>
+		<dependency org="com/fasterxml/jackson/module" name="jackson-module-jaxb-annotations" rev="2.4.6" conf="default"/>
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/google/inject" module="guice" revision="4.0" status="integration" publication="20210316121211" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="guice" type="jar" ext="jar" conf="default"/>
+		<artifact name="guice-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="guice-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="javax/inject" name="javax.inject" rev="1" conf="default"/>
+		<dependency org="com/google/guava" name="guava" rev="19.0" conf="default"/>
+		<dependency org="aopalliance" name="aopalliance" rev="1.0" conf="default"/>
+	</dependencies>
+</ivy-module>

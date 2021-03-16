@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/jvnet/jaxb2_commons" module="jaxb2-basics-annotate" revision="1.0.2" status="integration" publication="20210316121237" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jaxb2-basics-annotate" type="jar" ext="jar" conf="default"/>
+		<artifact name="jaxb2-basics-annotate-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="jaxb2-basics-annotate-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="org/jvnet/annox" name="annox" rev="1.0.1" conf="default"/>
+		<dependency org="org/jvnet/jaxb2_commons" name="jaxb2-basics-tools" rev="0.10.0" conf="default"/>
+	</dependencies>
+
+</ivy-module>

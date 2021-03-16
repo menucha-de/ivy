@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/codehaus/woodstox" module="stax2-api" revision="4.0.0" status="integration" publication="20210316121238" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="stax2-api" type="jar" ext="jar" conf="default"/>
+		<artifact name="stax2-api-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="stax2-api-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+</ivy-module>

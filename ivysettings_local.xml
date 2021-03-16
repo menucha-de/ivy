@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ivysettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <settings defaultResolver="default" />
+  <resolvers>
+    <chain name="default" checkmodified="true">
+      <filesystem name="local">
+         <ivy pattern="${ivy.default.ivy.user.dir}/local/[organisation]/[module]/[revision]/ivy.xml" />
+         <artifact
+           pattern="${ivy.default.ivy.user.dir}/local/[organisation]/[module]/[revision]/[artifact].[ext]" />
+      </filesystem>
+      <url name="libraries">
+        <ivy pattern="${ivy.url}/[organisation]/[module]/[revision]/ivy.xml" />
+        <artifact
+          pattern="${ivy.url}/[organisation]/[module]/[revision]/[artifact].[ext]" />
+      </url>
+    </chain>
+  </resolvers>
+</ivysettings>

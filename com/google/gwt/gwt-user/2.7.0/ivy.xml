@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/google/gwt" module="gwt-user" revision="2.7.0" status="integration" publication="20210316121210" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="gwt-user" type="jar" ext="jar" conf="default"/>
+		<artifact name="gwt-user-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="gwt-user-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/google/jsinterop" name="jsinterop-annotations" rev="1.0.1" conf="default"/>
+		<dependency org="javax/validation" name="validation-api" rev="1.0.0.GA" conf="default"/>
+		<conflict org="javax/validation" module="validation-api" rev="1.0.0.GA"/>
+	</dependencies>
+
+</ivy-module>

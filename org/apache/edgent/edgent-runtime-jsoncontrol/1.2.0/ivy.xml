@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/apache/edgent" module="edgent-runtime-jsoncontrol" revision="1.2.0" status="integration" publication="20210316121230" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="src"/>
+		<conf name="doc"/>
+		<conf name="module"/>
+	</configurations>
+
+	<publications>
+		<artifact name="edgent-runtime-jsoncontrol" conf="default,module"/>
+		<artifact name="edgent-runtime-jsoncontrol-sources" conf="src"/>
+		<artifact name="edgent-runtime-jsoncontrol-javadoc" conf="doc"/>
+	</publications>
+
+</ivy-module>

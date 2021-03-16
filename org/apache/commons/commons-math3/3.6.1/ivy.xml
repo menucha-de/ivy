@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/apache/commons" module="commons-math3" revision="3.6.1" status="integration" publication="20210316121221" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="module"/>
+	</configurations>
+
+	<publications>
+		<artifact name="commons-math3" conf="default,module"/>
+		<artifact name="commons-math3-javadoc" conf="doc"/>
+		<artifact name="commons-math3-sources" conf="src"/>
+	</publications>
+
+</ivy-module>

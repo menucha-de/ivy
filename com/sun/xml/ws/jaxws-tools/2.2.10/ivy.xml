@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/sun/xml/ws" module="jaxws-tools" revision="2.2.10" status="integration" publication="20210316121146" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jaxws-tools" type="jar" ext="jar" conf="default"/>
+		<artifact name="jaxws-tools-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="jaxws-tools-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/sun/xml/bind" name="jaxb-xjc" rev="2.2.10" conf="default"/>
+		<dependency org="com/sun/xml/stream/buffer" name="streambuffer" rev="1.5.3" conf="default"/>
+		<dependency org="com/sun/xml/ws" name="jaxws-rt" rev="2.2.10" conf="default"/>
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="io/netty" module="netty-codec-http" revision="4.1.39.Final" status="integration" publication="20210316121158" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="netty-codec-http" conf="default,module"/>
+		<artifact name="netty-codec-http-javadoc" conf="doc"/>
+		<artifact name="netty-codec-http-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="io/netty" name="netty-codec" rev="4.1.39.Final" conf="default;module->default"/>
+		<dependency org="io/netty" name="netty-handler" rev="4.1.39.Final" conf="default;module->default"/>
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="de/feig" module="obid-linux-amd64" revision="5.5.2" status="integration" publication="20210316121215" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="lib" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="OBIDISC4J-linux-amd64" conf="default"/>
+		<artifact name="libfecom" ext="so.3.4.0" conf="lib"/>
+		<artifact name="libFedmIscCore" ext="so.5.5.2" conf="lib"/>
+		<artifact name="libFedmIscService" ext="so.8.6.1" conf="lib"/>
+		<artifact name="libfefu" ext="so.2.2.0" conf="lib"/>
+		<artifact name="libfeisc" ext="so.7.8.0" conf="lib"/>
+		<artifact name="libfetcl" ext="so.2.4.0" conf="lib"/>
+		<artifact name="libfetcp" ext="so.3.1.0" conf="lib"/>
+		<artifact name="libfeusb" ext="so.6.0.2" conf="lib"/>
+	</publications>
+
+</ivy-module>

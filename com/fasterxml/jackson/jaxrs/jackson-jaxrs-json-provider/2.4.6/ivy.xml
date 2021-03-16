@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/fasterxml/jackson/jaxrs" module="jackson-jaxrs-json-provider" revision="2.4.6" status="integration" publication="20210316121151" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jackson-jaxrs-json-provider" conf="default,module"/>
+		<artifact name="jackson-jaxrs-json-provider-javadoc" conf="doc"/>
+		<artifact name="jackson-jaxrs-json-provider-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/fasterxml/jackson/jaxrs" name="jackson-jaxrs-base" rev="2.4.6" conf="default"/>
+		<dependency org="com/fasterxml/jackson/module" name="jackson-module-jaxb-annotations" rev="2.4.6" conf="default"/>
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/jboss/resteasy" module="resteasy-client" revision="3.6.3.Final" status="integration" publication="20210316121203" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="resteasy-client" type="jar" ext="jar" conf="default"/>
+		<artifact name="resteasy-client-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="org/apache/httpcomponents" name="httpclient" rev="4.5.1" conf="default"/>
+		<dependency org="org/apache/httpcomponents" name="httpcore" rev="4.4.4" conf="default"/>
+		<dependency org="org/jboss/resteasy" name="resteasy-jaxrs" rev="3.6.3.Final" conf="default"/>
+	</dependencies>
+
+</ivy-module>

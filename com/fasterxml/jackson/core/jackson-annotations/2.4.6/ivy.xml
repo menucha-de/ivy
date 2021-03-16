@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/fasterxml/jackson/core" module="jackson-annotations" revision="2.4.6" status="integration" publication="20210316121147" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jackson-annotations" conf="default,module"/>
+		<artifact name="jackson-annotations-javadoc" conf="doc"/>
+		<artifact name="jackson-annotations-sources" conf="src"/>
+	</publications>
+
+</ivy-module>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/jboss/logging" module="jboss-logging" revision="3.4.1.Final" status="integration" publication="20210316121158" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jboss-logging" conf="default,module"/>
+		<artifact name="jboss-logging-sources" conf="doc"/>
+		<artifact name="jboss-logging-sources" conf="src"/>
+	</publications>
+
+	<dependencies/>
+
+</ivy-module>

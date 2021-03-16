@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="commons-logging" module="commons-logging" revision="1.2" status="integration" publication="20210316121214" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="commons-logging" type="jar" ext="jar" conf="default"/>
+		<artifact name="commons-logging-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="commons-logging-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+</ivy-module>

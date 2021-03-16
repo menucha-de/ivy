@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/jboss/resteasy" module="resteasy-multipart-provider" revision="3.6.3.Final" status="integration" publication="20210316121203" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="resteasy-multipart-provider" conf="default"/>
+		<artifact name="resteasy-multipart-provider-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="javax/ws/rs" name="javax.ws.rs-api" rev="2.0.1" conf="default"/>
+		<dependency org="org/jboss/resteasy" name="resteasy-jaxrs" rev="3.6.3.Final" conf="default"/>
+		<dependency org="org/apache/james" name="apache-mime4j" rev="0.6" conf="default"/>
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="org/jmockit" module="jmockit-coverage" revision="1.20" status="integration" publication="20210316121237" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jmockit-coverage" type="jar" ext="jar" conf="default"/>
+		<artifact name="jmockit-coverage-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="jmockit-coverage-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+
+</ivy-module>

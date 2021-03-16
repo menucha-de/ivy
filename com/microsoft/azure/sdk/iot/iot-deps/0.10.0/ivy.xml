@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/microsoft/azure/sdk/iot" module="iot-deps" revision="0.10.0" status="integration" publication="20210316121235" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="iot-deps" type="jar" ext="jar" conf="default,module"/>
+		<artifact name="iot-deps-javadoc" type="jar" ext="jar" conf="doc"/>
+		<artifact name="iot-deps-sources" type="jar" ext="jar" conf="src"/>
+	</publications>
+	
+	<dependencies>
+		<dependency org="org/eclipse/paho" name="org.eclipse.paho.client.mqttv3" rev="1.2.2" conf="default"/>
+	</dependencies>
+
+</ivy-module>

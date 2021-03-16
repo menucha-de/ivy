@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="javax/xml/ws" module="jaxws-api" revision="2.2.12" status="integration" publication="20210316121139" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="jaxws-api" conf="default,module"/>
+		<artifact name="jaxws-api-javadoc" conf="doc"/>
+		<artifact name="jaxws-api-sources" conf="src"/>
+	</publications>
+
+</ivy-module>
