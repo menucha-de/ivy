@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/util/core" module="core-common" revision="2.7.0" status="integration" publication="20210316145621" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="module"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.util.core-common" conf="default,module"/>
+		<artifact name="havis.util.core-common-javadoc" conf="doc"/>
+		<artifact name="havis.util.core-common-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-databind" rev="2.4.6" conf="default"/>
+		<dependency org="havis/util/core" name="core-api" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default;module"/>
+	</dependencies>
+</ivy-module>
