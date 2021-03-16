@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/util" module="monitor" revision="2.7.0" status="integration" publication="20210316144347" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.util.monitor" conf="default,module"/>
+		<artifact name="havis.util.monitor-javadoc" conf="doc"/>
+		<artifact name="havis.util.monitor-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="javax/xml/bind" name="jaxb-api" rev="2.2.10" conf="module"/>
+	</dependencies>
+
+</ivy-module>
