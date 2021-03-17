@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
+
+	<info organisation="havis/net" module="middleware-linux-amd64" revision="2.7.0" status="integration" publication="20210317165348" default="true" e:app="havis.middleware"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.middleware" type="app" conf="default"/>
+	</publications>
+
+</ivy-module>
