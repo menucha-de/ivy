@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/tools" module="jre-linux-arm" revision="2.7.0" status="integration" publication="20210317114935" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="dev"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis-jre-8" type="deb" conf="default"/>
+		<artifact name="havis-jdk-8" type="deb" conf="dev"/>
+	</publications>
+
+</ivy-module>
