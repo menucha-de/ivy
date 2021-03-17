@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/middleware/subscriber" module="queue-subscriberconnector" revision="2.7.0" status="integration" publication="20210317161410" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="deb"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.middleware.subscriber.queue-subscriberconnector" conf="default"/>
+		<artifact name="havis.middleware.subscriber.queue-subscriberconnector-javadoc" conf="doc"/>
+		<artifact name="havis.middleware.subscriber.queue-subscriberconnector-sources" conf="src"/>
+		<artifact name="havis.middleware.subscriber.queue-subscriberconnector" type="deb" conf="deb"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/middleware" name="ale-api" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default"/>
+	</dependencies>
+
+</ivy-module>
