@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/net/rest" module="core" revision="2.7.0" status="integration" publication="20210317102259" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.net.rest.core" conf="default,module"/>
+		<artifact name="havis.net.rest.core-javadoc" conf="doc"/>
+		<artifact name="havis.net.rest.core-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/net/rest" name="shared" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default"/>
+		<dependency org="havis/util/core" name="core-api" rev="2.7.0" revConstraint="[2.7,3.1[" conf="default"/>
+	</dependencies>
+
+</ivy-module>
