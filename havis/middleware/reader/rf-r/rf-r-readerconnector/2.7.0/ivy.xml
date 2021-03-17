@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/middleware/reader/rf-r" module="rf-r-readerconnector" revision="2.7.0" status="integration" publication="20210317154505" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.middleware.reader.rf-r-readerconnector" conf="default"/>
+		<artifact name="havis.middleware.reader.rf-r-readerconnector-javadoc" conf="doc"/>
+		<artifact name="havis.middleware.reader.rf-r-readerconnector-sources" conf="src"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="de/feig" name="obid" rev="5.5.2" conf="default"/>
+		<dependency org="havis/middleware" name="ale-api" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default"/>
+		<dependency org="havis/middleware" name="utils" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default"/>
+		<dependency org="havis/util" name="monitor" rev="2.7.0" revConstraint="[2.7,2.8[" conf="default"/>
+	</dependencies>
+
+</ivy-module>
