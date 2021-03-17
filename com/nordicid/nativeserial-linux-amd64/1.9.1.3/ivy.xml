@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="com/nordicid" module="nativeserial-linux-amd64" revision="1.9.1.3" status="integration" publication="20210317154449" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+	</configurations>
+
+	<publications>
+		<artifact name="com.nordicid.nativeserial-linux-amd64" conf="default"/>
+	</publications>
+
+</ivy-module>
