@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 
-	<info organisation="havis/device/rf/nur" module="tools" revision="2.7.0" status="integration" publication="20210317155318" default="true"/>
+	<info organisation="havis/device/rf/nur" module="tools" revision="2.7.0" status="integration" publication="20210317155335" default="true"/>
 
 	<configurations>
 		<conf name="default" visibility="public"/>
