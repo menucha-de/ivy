@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/middleware" module="tdt" revision="2.7.0" status="integration" publication="20210317144804" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="module"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="deb"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.middleware.tdt" conf="default,module"/>
+		<artifact name="havis.middleware.tdt-javadoc" conf="doc"/>
+		<artifact name="havis.middleware.tdt-sources" conf="src"/>
+		<artifact name="havis.middleware.tdt" type="deb" conf="deb"/>
+	</publications>
+
+	<dependencies>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-core" rev="2.4.6" conf="module"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-databind" rev="2.4.6" conf="default,module"/>
+		<dependency org="com/fasterxml/jackson/core" name="jackson-annotations" rev="2.4.6" conf="module"/>
+		<dependency org="javax/xml/bind" name="jaxb-api" rev="2.2.10" conf="module"/>
+	</dependencies>
+
+</ivy-module>
