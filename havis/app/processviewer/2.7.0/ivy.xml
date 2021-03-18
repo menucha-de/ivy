@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
+
+	<info organisation="havis/app" module="processviewer" revision="2.7.0" status="integration" publication="20210318163522" default="true" e:app="havis.app.processviewer"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="doc"/>
+		<conf name="src"/>
+		<conf name="app"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.processviewer" type="app" conf="app"/>
+		<artifact name="havis.app.processviewer-javadoc" conf="doc"/>
+		<artifact name="havis.app.processviewer-sources" conf="src"/>		
+	</publications>
+
+	<dependencies>
+		<dependency org="havis/middleware" name="ale-api" rev="2.7.0" revConstraint="latest.integration" conf="default"/>
+	</dependencies>
+
+</ivy-module>
