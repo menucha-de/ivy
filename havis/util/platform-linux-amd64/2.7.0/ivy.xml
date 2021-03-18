@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/util" module="platform-linux-amd64" revision="2.7.0" status="integration" publication="20210318110004" default="true"/>
+
+	<configurations>
+		<conf name="default"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.util.platform-linux-amd64" conf="default"/>
+	</publications>
+
+</ivy-module>
