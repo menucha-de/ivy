@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
 
-	<info organisation="havis/app/etb" module="input" revision="2.7.0" status="integration" publication="20210318102800" default="true" e:app="havis.app.etb.input"/>
+	<info organisation="havis/app/etb" module="input" revision="2.7.0" status="integration" publication="20210318104725" default="true" e:app="havis.app.etb.input"/>
 
 	<configurations>
 		<conf name="default"/>
