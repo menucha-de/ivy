@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:e="http://ant.apache.org/ivy/extra">
 
-	<info organisation="havis/app" module="assignmentstore" revision="2.7.0" status="integration" publication="20210318170502" default="true" e:app="havis.app.assignmentstore"/>
+	<info organisation="havis/app" module="assignmentstore" revision="2.7.0" status="integration" publication="20210318170950" default="true" e:app="havis.app.assignmentstore"/>
 
 	<configurations>
 		<conf name="default"/>
