@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info organisation="havis/opcua/message" module="api" revision="2.7.0" status="integration" publication="20210319133110" default="true"/>
+
+	<configurations>
+		<conf name="default" visibility="public"/>
+		<conf name="doc" visibility="public"/>
+		<conf name="src" visibility="public"/>
+		<conf name="module"/>
+		<conf name="deb"/>
+	</configurations>
+
+	<publications>
+		<artifact name="havis.opcua.message-api" conf="default,module"/>
+		<artifact name="havis.opcua.message-api-javadoc" conf="doc"/>
+		<artifact name="havis.opcua.message-api-sources" conf="src"/>	
+		<artifact name="havis.opcua.message-api" type="deb" conf="deb"/>
+	</publications>
+
+</ivy-module>
